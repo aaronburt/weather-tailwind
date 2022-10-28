@@ -37,7 +37,7 @@ export default function App(){
 
 
     return(
-        <div className="h-screen w-full flex bg-slate-100 dark:bg-slate-900">
+        <div className="h-screen w-full flex bg-slate-100 dark:bg-slate-800">
             <div className="m-auto w-11/12 grid grid-cols-5 p-4 shadow-2xl dark:divide-slate-700 bg-white text-black dark:text-white dark:bg-slate-900 rounded-xl divide-x">
                 {weather}
             </div>
