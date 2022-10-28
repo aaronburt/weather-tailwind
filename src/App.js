@@ -19,8 +19,7 @@ export default function App(){
 
                 let day = daily[k];
                 let days = ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday", "Friday","Saturday"]
-
-
+                
                     return (
                         <div key={k} className="text-center text-black divide-x-2 hover:bg-slate-100">
                             <div className="font-light text-2xl">{days[new Date(day.dt * 1000).getDay()]}</div>
