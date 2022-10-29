@@ -2,26 +2,26 @@ import { useEffect, useState } from "react"
 
 export default function App(){
     const [weather, setWeather] = useState('');
+
     useEffect(()=>{
         async function getWeather(){
             try {
                 const response = await fetch('https://weather.streamsave.xyz/get?city=congleton');
                 const data = await response.json();
-                const daily = data.daily;
                 const baseIconUrl = "https://openweathermap.org/img/wn/";
 
-                const minmax = Object.keys(daily).map(([k, v]) => { 
+                const minmax = Object.keys(data.daily).map(([k, v]) => { 
                     if(k >= 5) return;
-                    let day = daily[k];
+                    let day = data.daily[k];
                     let days = ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday", "Friday","Saturday"];
                     return (
-                        <div key={k} className="text-center transition-all">
-                            <div className="font-light small:text-sm laptop:text-2xl ">{days[new Date(day.dt * 1000).getDay()]}</div>
-                            <div className="small:text-sm laptop:text-lg">{Math.ceil(day.temp.max)}°c {Math.floor(day.temp.max)}°c</div>
-                            <div className="capitalize small:text-sm laptop:text-l">{day.weather[0].description}</div>
-                            
-                            <div className="justify-center">
-                                <img className="mx-auto hover:scale-110 w-[100px]" src={baseIconUrl + day.weather[0].icon + '@4x.png'}/>
+                        <div key={k} className="text-center flex-1">
+                            <div className="font-light small:text-sm laptop:text-2xl small:hidden tablet:inline-block">{days[new Date(day.dt * 1000).getDay()]}</div>
+                            <div className="font-light small:text-sm small:inline-block tablet:hidden laptop:text-lg">{days[new Date(day.dt * 1000).getDay()].substring(0,3)}</div>
+                            <div className="small:text-sm laptop:text-lg">{Math.ceil(day.temp.max)}°c <span className="small:hidden tablet:inline-block">{Math.floor(day.temp.max)}°c</span></div>
+                            <div className="capitalize small:text-sm laptop:text-lg">{day.weather[0].description}</div>
+                            <div className="justify-center small:hidden tablet:inline-block">
+                                <img className="mx-auto w-[100px]" src={baseIconUrl + day.weather[0].icon + '@4x.png'}/>
                             </div>
                         </div>
                     );
@@ -35,16 +35,13 @@ export default function App(){
         getWeather();
     }, []);
 
-
-    return(
-        <div className="small:h-max tablet:h-max laptop:h-screen w-full flex bg-slate-100 dark:bg-slate-800">
-            <div className="m-auto w-11/12 grid small:grid-cols-1 small:divide-x-0 laptop:divide-x laptop:grid-cols-5 p-4 shadow-2xl dark:divide-slate-700 bg-white text-black dark:text-white dark:bg-slate-900 rounded-xl ">
-                {weather}
+    return (
+        <>
+            <div className="bg-slate-100 h-screen flex dark:bg-slate-800">
+                <div className="m-auto small:h-full tablet:h-fit align-text-top small:w-full tablet:w-11/12 laptop:9/12 flex small:divide-x-0 laptop:divide-x items-center small:p-0 tablet:p-4 shadow-2xl dark:divide-slate-700 bg-white text-black dark:text-white dark:bg-slate-900 small:rounded-none tablet:rounded-xl ">
+                    {weather}
+                </div>
             </div>
-        </div>
-    )
-
-
-
-
+        </>
+    );
 }
