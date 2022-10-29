@@ -15,12 +15,13 @@ export default function App(){
                     let day = data.daily[k];
                     let days = ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday", "Friday","Saturday"];
                     return (
-                        <div key={k} className="text-center flex-1">
+                        <div key={k} className="text-center flex-1 flex-wrap">
                             <div className="font-light small:text-sm laptop:text-2xl small:hidden tablet:inline-block">{days[new Date(day.dt * 1000).getDay()]}</div>
                             <div className="font-light small:text-sm small:inline-block tablet:hidden laptop:text-lg">{days[new Date(day.dt * 1000).getDay()].substring(0,3)}</div>
                             <div className="small:text-sm laptop:text-lg">{Math.ceil(day.temp.max)}°c <span className="small:hidden tablet:inline-block">{Math.floor(day.temp.max)}°c</span></div>
-                            <div className="capitalize small:text-sm laptop:text-lg">{day.weather[0].description}</div>
-                            <div className="justify-center small:hidden tablet:inline-block">
+                            <div className="capitalize small:text-sm laptop:text-lg small:inline tablet:hidden">{day.weather[0].main}</div>
+                            <div className="capitalize small:text-sm laptop:text-lg small:hidden tablet:block">{day.weather[0].description}</div>
+                            <div className="justify-center">
                                 <img className="mx-auto w-[100px]" src={baseIconUrl + day.weather[0].icon + '@4x.png'}/>
                             </div>
                         </div>
